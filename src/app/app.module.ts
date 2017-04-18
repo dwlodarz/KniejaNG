@@ -10,6 +10,7 @@ import { MainComponent } from './main/main.component';
 import { BannerComponent } from './banner/banner.component';
 import { CtaComponent } from './cta/cta.component';
 import { FooterComponent } from './footer/footer.component';
+import { GalleryComponent } from './gallery/gallery.component';
 
 const appRoutes: Routes = [
 {
@@ -17,7 +18,8 @@ const appRoutes: Routes = [
     component: MainComponent,
   //  data: { title: 'Heroes List' }
   },
-   { path: 'main', component: MainComponent }
+   { path: 'main', component: MainComponent },
+   { path: 'gallery', component: GalleryComponent}
 ];
 
 @NgModule({
@@ -26,7 +28,8 @@ const appRoutes: Routes = [
     MainComponent,
     BannerComponent,
     CtaComponent,
-    FooterComponent
+    FooterComponent,
+    GalleryComponent
   ],
   imports: [
     BrowserModule,
