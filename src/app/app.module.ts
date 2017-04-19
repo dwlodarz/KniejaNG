@@ -11,6 +11,7 @@ import { BannerComponent } from './banner/banner.component';
 import { CtaComponent } from './cta/cta.component';
 import { FooterComponent } from './footer/footer.component';
 import { GalleryComponent } from './gallery/gallery.component';
+import { AgmCoreModule } from 'angular2-google-maps/core';
 
 const appRoutes: Routes = [
 {
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    AgmCoreModule.forRoot({apiKey:'AIzaSyC_UxZqN2V73_1aNw6cMoXfopRyTkNxf58'}),
     RouterModule.forRoot(appRoutes)
   ],
   providers: [{provide: APP_BASE_HREF, useValue : '/' }],
