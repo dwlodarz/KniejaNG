@@ -12,6 +12,7 @@ import { CtaComponent } from './cta/cta.component';
 import { FooterComponent } from './footer/footer.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { AgmCoreModule } from 'angular2-google-maps/core';
+import { GoogleComponent } from './google/google.component';
 
 const appRoutes: Routes = [
 {
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
     BannerComponent,
     CtaComponent,
     FooterComponent,
-    GalleryComponent
+    GalleryComponent,
+    GoogleComponent
   ],
   imports: [
     BrowserModule,
