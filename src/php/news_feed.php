@@ -1,4 +1,13 @@
 <?php
+
+class NewsItem { 
+    public $id;
+    public $subject;
+    public $username;
+    public $timestamp;
+    public $readCount;
+} 
+
 // Allow from any origin
 if(isset($_SERVER["HTTP_ORIGIN"]))
 {
@@ -26,14 +35,6 @@ if($_SERVER["REQUEST_METHOD"] == "OPTIONS")
     exit(0);
 }
 require_once "maincore.php";
-//require_once THEMES."templates/header.php";
-
-// Predefined variables, do not edit these values
-//if ($settings[\"news_style'] == "1") { $i = 0; $rc = 0; $ncount = 1; $ncolumn = 1; $news_[0] = ""; $news_[1] = ""; $news_[2] = ""; } else { $i = 1; }
-
-// Number of news displayed
-//$items_per_page = $settings['newsperpage'];
-
 
 if (!isset($_GET['readmore']) || !isnum($_GET['readmore'])) {
 	$rows = dbcount("(news_id)", DB_NEWS, groupaccess('news_visibility')." AND (news_start='0'||news_start<=".time().") AND (news_end='0'||news_end>=".time().") AND news_draft='0'");
@@ -44,27 +45,36 @@ if (!isset($_GET['readmore']) || !isnum($_GET['readmore'])) {
 			LEFT JOIN ".DB_USERS." tu ON tn.news_name=tu.user_id
 			LEFT JOIN ".DB_NEWS_CATS." tc ON tn.news_cat=tc.news_cat_id
 			WHERE ".groupaccess('news_visibility')." AND (news_start='0'||news_start<=".time().") AND (news_end='0'||news_end>=".time().") AND news_draft='0'
-			ORDER BY news_sticky DESC, news_datestamp DESC LIMIT ".$_GET['rowstart']."20"
+			ORDER BY news_sticky DESC, news_datestamp DESC LIMIT ".$_GET['rowstart']."20", 'utf-8'
 		);
 		$numrows = dbrows($result);
 		if ($settings['news_style'] == "1") { $nrows = round((dbrows($result) - 1) / 2); }
         $resultJson = "[";
+        $newsArray = array();
+
         $count = 0;
 		while ($data = dbarray($result)) {
 			$news_cat_image = "";
             $resultJson .="{\"id\":".$data['news_id'].", \"subject\":\"".stripslashes($data['news_subject'])."\", \"username\":\"".$data['user_name']."\", \"timestamp\": \"".$data['news_datestamp']."\", \"readCount\": ".$data['news_reads']."},";
-            
+
+            $newsItem = new NewsItem();
+            $newsItem->id = iconv('ISO-8859-2', 'UTF-8//TRANSLIT',$data['news_id']);
+            $newsItem->subject = iconv('ISO-8859-2', 'UTF-8//TRANSLIT',$data['news_subject']);
+            $newsItem->username = iconv('ISO-8859-2', 'UTF-8//TRANSLIT',$data['user_name']);
+            $newsItem->timestamp = iconv('ISO-8859-2', 'UTF-8//TRANSLIT',$data['news_datestamp']);
+            $newsItem->readCount = iconv('ISO-8859-2', 'UTF-8//TRANSLIT',$data['news_reads']);
+            array_push($newsArray, $newsItem);
         }
 
         $resultJson=rtrim($resultJson,",");
         $resultJson .= "]";
-        echo $resultJson;
+       echo json_encode($newsArray);
+        //header('Content-type:application/json;charset=iso-8859-2');
+header('Content-Type: application/json; charset=utf-8');
+        
+//echo $resultJson;
     }
 }
 			
 ?>
-
-<!--$.get( "https://knieja3.cba.pl/news2.php", function( data ) {
-  console.log(JSON.parse(data));
-
-});-->
+			

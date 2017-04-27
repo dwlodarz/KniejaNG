@@ -13,7 +13,7 @@ import { FooterComponent } from './footer/footer.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { GoogleComponent } from './google/google.component';
-import { NewsService } from './news.service';
+
 const appRoutes: Routes = [
 {
     path: '',
@@ -32,8 +32,8 @@ const appRoutes: Routes = [
     CtaComponent,
     FooterComponent,
     GalleryComponent,
-    GoogleComponent,
-    NewsService
+    GoogleComponent//,
+    //NewsService
   ],
   imports: [
     BrowserModule,
