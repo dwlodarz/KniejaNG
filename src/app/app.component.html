@@ -1,7 +1,7 @@
 <div id="page-wrapper">
 
     <!-- Header -->
-    <header id="header" class="alt">
+    <header id="header" [ngClass]="headerClass">
         <h1 id="logo"><a href="index.html">Twenty <span>by HTML5 UP</span></a></h1>
         <nav id="nav">
             <ul>
@@ -30,16 +30,13 @@
         </nav>
     </header>
 
-    <!--Banner-->
-    <app-banner></app-banner>
-
     <router-outlet>
         <!-- Main -->
         <!--<app-main></app-main>-->
     </router-outlet>
 
 
-    <!-- CTA -->cta
+    <!-- CTA -->
     <app-cta></app-cta>
 
     <!-- Footer -->

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
-import {APP_BASE_HREF} from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
@@ -13,15 +13,17 @@ import { FooterComponent } from './footer/footer.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { GoogleComponent } from './google/google.component';
+import { NewsComponent } from './news/news.component';
 
 const appRoutes: Routes = [
-{
+  {
     path: '',
     component: MainComponent,
-  //  data: { title: 'Heroes List' }
+    //  data: { title: 'Heroes List' }
   },
-   { path: 'main', component: MainComponent },
-   { path: 'gallery', component: GalleryComponent}
+  { path: 'main', component: MainComponent },
+  { path: 'gallery', component: GalleryComponent },
+  { path: 'news', component: NewsComponent }
 ];
 
 @NgModule({
@@ -32,17 +34,17 @@ const appRoutes: Routes = [
     CtaComponent,
     FooterComponent,
     GalleryComponent,
-    GoogleComponent//,
-    //NewsService
+    GoogleComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AgmCoreModule.forRoot({apiKey:'AIzaSyC_UxZqN2V73_1aNw6cMoXfopRyTkNxf58'}),
+    AgmCoreModule.forRoot({ apiKey: 'AIzaSyC_UxZqN2V73_1aNw6cMoXfopRyTkNxf58' }),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [{provide: APP_BASE_HREF, useValue : '/' }],
+  providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
   bootstrap: [AppComponent]
 })
 
