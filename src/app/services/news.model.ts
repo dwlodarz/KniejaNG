@@ -4,4 +4,7 @@ export class NewsModel {
     username : string;
     timestamp : string;
     readCount : number;
+    bodyShort: string;
+    body: string;
+    imageUrl: string;
 }

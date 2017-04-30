@@ -6,6 +6,9 @@ class NewsItem {
     public $username;
     public $timestamp;
     public $readCount;
+    public $bodyShort;
+    public $body;
+    public $imageUrl;
 } 
 
 // Allow from any origin
@@ -38,14 +41,14 @@ require_once "maincore.php";
 
 if (!isset($_GET['readmore']) || !isnum($_GET['readmore'])) {
 	$rows = dbcount("(news_id)", DB_NEWS, groupaccess('news_visibility')." AND (news_start='0'||news_start<=".time().") AND (news_end='0'||news_end>=".time().") AND news_draft='0'");
-	if (!isset($_GET['rowstart']) || !isnum($_GET['rowstart'])) { $_GET['rowstart'] = 0; }
+	if (!isset($_GET['take']) || !isnum($_GET['take'])) { $_GET['take'] = 10; }
 	if ($rows) {
 		$result = dbquery(
 			"SELECT tn.*, tc.*, user_id, user_name FROM ".DB_NEWS." tn
 			LEFT JOIN ".DB_USERS." tu ON tn.news_name=tu.user_id
 			LEFT JOIN ".DB_NEWS_CATS." tc ON tn.news_cat=tc.news_cat_id
 			WHERE ".groupaccess('news_visibility')." AND (news_start='0'||news_start<=".time().") AND (news_end='0'||news_end>=".time().") AND news_draft='0'
-			ORDER BY news_sticky DESC, news_datestamp DESC LIMIT ".$_GET['rowstart']."20", 'utf-8'
+			ORDER BY news_sticky DESC, news_datestamp DESC LIMIT ".$_GET['take']."", 'utf-8'
 		);
 		$numrows = dbrows($result);
 		if ($settings['news_style'] == "1") { $nrows = round((dbrows($result) - 1) / 2); }
@@ -55,24 +58,19 @@ if (!isset($_GET['readmore']) || !isnum($_GET['readmore'])) {
         $count = 0;
 		while ($data = dbarray($result)) {
 			$news_cat_image = "";
-            $resultJson .="{\"id\":".$data['news_id'].", \"subject\":\"".stripslashes($data['news_subject'])."\", \"username\":\"".$data['user_name']."\", \"timestamp\": \"".$data['news_datestamp']."\", \"readCount\": ".$data['news_reads']."},";
-
             $newsItem = new NewsItem();
             $newsItem->id = iconv('ISO-8859-2', 'UTF-8//TRANSLIT',$data['news_id']);
             $newsItem->subject = iconv('ISO-8859-2', 'UTF-8//TRANSLIT',$data['news_subject']);
             $newsItem->username = iconv('ISO-8859-2', 'UTF-8//TRANSLIT',$data['user_name']);
             $newsItem->timestamp = iconv('ISO-8859-2', 'UTF-8//TRANSLIT',$data['news_datestamp']);
             $newsItem->readCount = iconv('ISO-8859-2', 'UTF-8//TRANSLIT',$data['news_reads']);
+            $newsItem->bodyShort = iconv('ISO-8859-2', 'UTF-8//TRANSLIT',$data['news_news']);
+            $newsItem->body = iconv('ISO-8859-2', 'UTF-8//TRANSLIT',$data['news_extended']);
+            $newsItem->imageUrl = iconv('ISO-8859-2', 'UTF-8//TRANSLIT',$data['news_image']);
             array_push($newsArray, $newsItem);
         }
-
-        $resultJson=rtrim($resultJson,",");
-        $resultJson .= "]";
        echo json_encode($newsArray);
-        //header('Content-type:application/json;charset=iso-8859-2');
-header('Content-Type: application/json; charset=utf-8');
-        
-//echo $resultJson;
+        header('Content-Type: application/json; charset=utf-8');
     }
 }
 			
