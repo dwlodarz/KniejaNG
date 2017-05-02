@@ -52,7 +52,7 @@
                 <!-- Content -->
                 <div class="content">
                     <section *ngFor="let item of news;">
-                        <a href="#" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
+                        <a href="#" class="image featured"><img src="{{item.imageUrl}}" alt="" /></a>
                         <header>
                             <h3>{{item.subject}}</h3>
                         </header>

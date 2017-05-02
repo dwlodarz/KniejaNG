@@ -15,6 +15,7 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import { GoogleComponent } from './google/google.component';
 import { NewsComponent } from './news/news.component';
 import { MenuComponent } from './menu/menu.component';
+import { HistoriaComponent } from './historia/historia.component';
 
 const appRoutes: Routes = [
   {
@@ -24,7 +25,8 @@ const appRoutes: Routes = [
   },
   { path: 'main', component: MainComponent },
   { path: 'gallery', component: GalleryComponent },
-  { path: 'news', component: NewsComponent }
+  { path: 'news', component: NewsComponent },
+  { path: 'history', component: HistoriaComponent }
 ];
 
 @NgModule({
@@ -37,7 +39,8 @@ const appRoutes: Routes = [
     GalleryComponent,
     GoogleComponent,
     NewsComponent,
-    MenuComponent
+    MenuComponent,
+    HistoriaComponent
   ],
   imports: [
     BrowserModule,
