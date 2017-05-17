@@ -16,6 +16,7 @@ import { GoogleComponent } from './google/google.component';
 import { NewsComponent } from './news/news.component';
 import { MenuComponent } from './menu/menu.component';
 import { HistoriaComponent } from './historia/historia.component';
+import { ContactComponent } from './contact/contact.component';
 
 const appRoutes: Routes = [
   {
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
   { path: 'main', component: MainComponent },
   { path: 'gallery', component: GalleryComponent },
   { path: 'news', component: NewsComponent },
-  { path: 'history', component: HistoriaComponent }
+  { path: 'history', component: HistoriaComponent },
+  { path: 'contact', component: ContactComponent }
 ];
 
 @NgModule({
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
     GoogleComponent,
     NewsComponent,
     MenuComponent,
-    HistoriaComponent
+    HistoriaComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

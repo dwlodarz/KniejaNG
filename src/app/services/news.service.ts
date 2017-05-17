@@ -26,12 +26,12 @@ export class NewsService {
     var jsonData = data.json();
 
     for (var i = 0; i < jsonData.length; i++) {
-      // jsonData[i].body = this.stripHtml(jsonData[i].body);
-      // jsonData[i].bodyShort = this.stripHtml(jsonData[i].bodyShort);
-
-      if(jsonData[i].body == null || jsonData[i].body == ''){
+      if (jsonData[i].body == null || jsonData[i].body == '') {
         jsonData[i].body = jsonData[i].bodyShort;
       }
+
+      jsonData[i].body = jsonData[i].body.split('\n').join('<br/>');
+      jsonData[i].bodyShort = jsonData[i].bodyShort.split('\n').join('<br/>');
     }
     return jsonData;
   }

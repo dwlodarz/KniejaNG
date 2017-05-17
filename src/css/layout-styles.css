@@ -1604,7 +1604,8 @@ header.special {
     text-align: center;
 }
 
-header.special:before,
+
+/*header.special:before,
 header.special:after {
     border-bottom: solid 1.5px;
     border-top: solid 1.5px;
@@ -1614,7 +1615,7 @@ header.special:after {
     position: absolute;
     top: 1.75em;
     width: 43%;
-}
+}*/
 
 header.special:before {
     left: 0;
@@ -2315,6 +2316,11 @@ input[type="reset"].small,
     /* Section/Article */
     header.special {
         padding-top: 5.5em;
+        margin-bottom: 4em;
+    }
+    /*app-news header.special,*/
+    app-historia header.special {
+        padding-top: 0;
         margin-bottom: 4em;
     }
 }
